@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มแถวในตารางและ Local Storage</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .editable {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h2>ตารางข้อมูล</h2>
+    <!-- ตัวอย่างตาราง -->
+    <table id="gen">
+        <thead>
+            <tr>
+                <th>ชื่อ</th>
+                <th>อายุ</th>
+                <th>เมือง</th>
+                <th>ดำเนินการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ข้อมูลจะถูกโหลดจาก Local Storage ที่นี่ -->
+        </tbody>
+    </table>
+    <button onclick="addRowToTable('gen')">เพิ่มแถวในตาราง gen</button>
+
+    <table id="Tree">
+        <thead>
+            <tr>
+                <th>ชื่อ</th>
+                <th>อายุ</th>
+                <th>เมือง</th>
+                <th>ดำเนินการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ข้อมูลจะถูกโหลดจาก Local Storage ที่นี่ -->
+        </tbody>
+    </table>
+    <button onclick="addRowToTable('Tree')">เพิ่มแถวในตาราง Tree</button>
+
+    <!-- ทำซ้ำตามต้องการสำหรับตารางอื่นๆ -->
+
+    <script>
+        function addRowToTable(tableId) {
+            const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+
+            // กำหนดค่าเริ่มต้นสำหรับเซลล์ใหม่
+            cell1.contentEditable = "true";
+            cell1.className = "editable";
+            cell1.innerText = 'ใหม่';
+
+            cell2.contentEditable = "true";
+            cell2.className = "editable";
+            cell2.innerText = 'ใหม่';
+
+            cell3.contentEditable = "true";
+            cell3.className = "editable";
+            cell3.innerText = 'ใหม่';
+
+            cell4.innerHTML = '<button onclick="deleteRow(this)">ลบ</button>';
+
+            // บันทึกข้อมูลลงใน Local Storage
+            saveTable(tableId);
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+
+            // บันทึกการเปลี่ยนแปลงลงใน Local Storage
+            const tableId = row.closest('table').id;
+            saveTable(tableId);
+        }
+
+        function saveTable(tableId) {
+            const table = document.getElementById(tableId);
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            let data = [];
+
+            for (let i = 0; i < rows.length; i++) {
+                let rowData = [];
+                const cells = rows[i].getElementsByTagName('td');
+                for (let j = 0; j < cells.length - 1; j++) { // ลบเซลล์ปุ่มลบ
+                    rowData.push(cells[j].innerText);
+                }
+                data.push(rowData);
+            }
+
+            localStorage.setItem(`${tableId}TableData`, JSON.stringify(data));
+            alert('ข้อมูลถูกบันทึกแล้ว');
+        }
+
+        function loadTable(tableId) {
+            const data = JSON.parse(localStorage.getItem(`${tableId}TableData`));
+            if (data) {
+                const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+                table.innerHTML = '';
+
+                data.forEach(function(rowData) {
+                    const row = table.insertRow();
+                    rowData.forEach(function(cellData) {
+                        const cell = row.insertCell();
+                        cell.contentEditable = "true";
+                        cell.className = "editable";
+                        cell.innerText = cellData;
+                    });
+                    const cell = row.insertCell();
+                    cell.innerHTML = '<button onclick="deleteRow(this)">ลบ</button>';
+                });
+                alert('ข้อมูลถูกโหลดแล้ว');
+            } else {
+                alert('ไม่มีข้อมูลที่บันทึก');
+            }
+        }
+
+        // โหลดข้อมูลจาก Local Storage เมื่อโหลดหน้า
+        window.onload = function() {
+            loadTable('gen');
+            loadTable('Tree');
+            loadTable('bamboo');
+            loadTable('waii');
+            loadTable('sap');
+            loadTable('seed');
+        };
+    </script>
+</body>
+</html>

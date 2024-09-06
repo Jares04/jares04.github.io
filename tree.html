@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General sheet</title>
+    
+    <link rel="stylesheet" href="tree.css">
+
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="tree.html"> Inventory </a>
+        <a href="cal.html"> Calculation </a>
+        <a href=""> References </a>
+    </nav>
+    <nav>
+        <a href="1.html" class="active"> 1 </a>
+        <a href="2.html"> 2 </a>
+        <a href="3.html"> 3 </a>
+    </nav>
+    
+
+</header>
+
+<center><h2> GENERAL DATA </h2></center>
+<table id="gen">
+    <thead>
+        <tr>
+            <th>NAME</th>
+            <th>Plot id</th>
+            <th>Project id</th>
+            <th>MEASUREMENT DATE</th>
+            <th>GPS PLOT</th>
+            <th>PROVINCE</th>
+            <th>SLOPE</th>
+            <th>ASPECT</th>
+            <th>FOREST TYPE</th>
+            <th>DISTURBANCE</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<center>
+<button onclick="saveTable0('gen')">บันทึกข้อมูล</button>
+<button onclick="loadTable0('gen')">โหลดข้อมูล</button></center>
+
+<br>
+
+<center><h2> TREE </h2></center>
+<table id="Tree">
+    <thead>
+        <tr>
+            <th>plot</th>
+            <th>No</th>
+            <th>Name</th>
+            <th>Scientific name</th>
+            <th>Girth</th>
+            <th>Height</th>
+            <th>Ba</th>
+            <th>Remake</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td><button onclick="deleteRow(this)">ลบ</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<center><button onclick="addRow('Tree')">เพิ่มแถว</button>
+<button onclick="saveTable('Tree')">บันทึกข้อมูล</button>
+<button onclick="loadTable('Tree')">โหลดข้อมูล</button></center>
+<br>
+
+
+<center><h2> Bamboo </h2></center>
+<table id="bamboo">
+    <thead>
+        <tr>
+            <th>plot</th>
+            <th>No</th>
+            <th>Spicies</th>
+            <th>s (count, Girth)</th>
+            <th>m (count, Girth)</th>
+            <th>L (count, Girth)</th>
+            <th>Ba</th>
+            <th>Remake</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td><button onclick="deleteRow1(this)">ลบ</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<center><button onclick="addRow1('bamboo')">เพิ่มแถว</button>
+<button onclick="saveTable1('bamboo')">บันทึกข้อมูล</button>
+<button onclick="loadTable1('bamboo')">โหลดข้อมูล</button></center>
+<br>
+
+
+<center><h2> เถาวัลย์/หวาย </h2></center>
+<table id="waii">
+    <thead>
+        <tr>
+            <th>plot</th>
+            <th>No</th>
+            <th>Spicies</th>
+            <th>Girth</th>
+            <th>Remake</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td><button onclick="deleteRow2(this)">ลบ</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<center><button onclick="addRow2('waii')">เพิ่มแถว</button>
+<button onclick="saveTable2('waii')">บันทึกข้อมูล</button>
+<button onclick="loadTable2('waii')">โหลดข้อมูล</button></center>
+<br>
+
+<center><h2> Sapling </h2></center>
+<table id="sap">
+    <thead>
+        <tr>
+            <th>plot</th>
+            <th>No</th>
+            <th>Name</th>
+            <th>Scientific name</th>
+            <th>Girth</th>
+            <th>Height</th>
+            <th>Ba</th>
+            <th>Remake</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td><button onclick="deleteRow3(this)">ลบ</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<center><button onclick="addRow3('sap')">เพิ่มแถว</button>
+<button onclick="saveTable3('sap')">บันทึกข้อมูล</button>
+<button onclick="loadTable3('sap')">โหลดข้อมูล</button></center>
+<br>
+
+<center><h2> Seeding </h2></center>
+<table id="seed">
+    <thead>
+        <tr>
+            <th>plot</th>
+            <th>No</th>
+            <th>Spicies</th>
+            <th>Scientific name</th>
+            <th>count</th>
+            <th>Remake</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td><button onclick="deleteRow4(this)">ลบ</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<center><button onclick="addRow4('seed')">เพิ่มแถว</button>
+<button onclick="saveTable4('seed')">บันทึกข้อมูล</button>
+<button onclick="loadTable4('seed')">โหลดข้อมูล</button></center>
+<br>
+
+
+<center><button onclick="exportTableDataToPDF()">ส่งออกข้อมูลเป็น PDF</button></center>
+
+<script src="tree.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
+
+</body>
+
+
+
+</html>

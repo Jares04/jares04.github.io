@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แปลง GBH เป็น DBH</title>
+    <link rel="stylesheet" href="tree.css">
+
+    <style>
+      
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        #calculator {
+            display: inline-block;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 10px;
+        }
+
+        input[type="button"], input[type="text"] {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 240px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="tree.html"> Inventory </a>
+        <a href="cal.html"> Calculation </a>
+        <a href=""> References </a>
+    </nav>
+
+</header>
+
+    <div class="container">
+        <br>
+        <center><h2>แปลง GBH เป็น DBH</h2></center>
+        <br>
+        <input type="number" id="gbh" placeholder="ป้อนค่า GBH (cm)">
+        <button onclick="convertGBHtoDBH()">แปลงค่า</button>
+        <p id="dbhResult"></p>
+    </div>
+
+
+    <br>
+    <h1>เครื่องคิดเลข</h1>
+    <br>
+    <div id="calculator">
+        <input type="text" id="result" disabled>
+        <br>
+
+        <input type="button" value="1" onclick="addToDisplay('1')">
+        <input type="button" value="2" onclick="addToDisplay('2')">
+        <input type="button" value="3" onclick="addToDisplay('3')">
+        <input type="button" value="+" onclick="addToDisplay('+')">
+        <br>
+
+        <input type="button" value="4" onclick="addToDisplay('4')">
+        <input type="button" value="5" onclick="addToDisplay('5')">
+        <input type="button" value="6" onclick="addToDisplay('6')">
+        <input type="button" value="-" onclick="addToDisplay('-')">
+        <br>
+
+        <input type="button" value="7" onclick="addToDisplay('7')">
+        <input type="button" value="8" onclick="addToDisplay('8')">
+        <input type="button" value="9" onclick="addToDisplay('9')">
+        <input type="button" value="*" onclick="addToDisplay('*')">
+        <br>
+
+        <input type="button" value="C" onclick="clearDisplay()">
+        <input type="button" value="0" onclick="addToDisplay('0')">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="/" onclick="addToDisplay('/')">
+    </div>
+
+
+    <script>
+        function convertGBHtoDBH() {
+            const gbh = parseFloat(document.getElementById('gbh').value);
+            const dbh = gbh / Math.PI;
+            document.getElementById('dbhResult').innerText = `DBH คือ ${dbh.toFixed(2)} cm`;
+        }
+
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            let result;
+
+            switch(operation) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    break;
+                case 'divide':
+                    result = num1 / num2;
+                    break;
+            }
+
+            document.getElementById('calcResult').innerText = `ผลลัพธ์: ${result}`;
+        }
+
+// ฟังก์ชันเพิ่มตัวเลขหรือเครื่องหมายลงในจอแสดงผล
+function addToDisplay(value) {
+            document.getElementById("result").value += value;
+        }
+
+        // ฟังก์ชันคำนวณผลลัพธ์
+        function calculate() {
+            let expression = document.getElementById("result").value;
+            try {
+                document.getElementById("result").value = eval(expression);
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
+
+        // ฟังก์ชันล้างจอแสดงผล
+        function clearDisplay() {
+            document.getElementById("result").value = "";
+        }
+
+
+    </script>
+</body>
+</html>
