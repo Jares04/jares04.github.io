@@ -1,106 +1,105 @@
-// ฟังก์ชันบันทึกข้อมูลลง Local Storage
-function saveTable0() {
-    const table = document.getElementById('gen');
+function saveData() {
+    const data = {
+        projectId: document.getElementById('projectId').value,
+        plot: document.getElementById('plot').value,
+        measurementDate: document.getElementById('measurementDate').value,
+        gpsMap: document.getElementById('gpsMap').value,
+        gpsSite: document.getElementById('gpsSite').value,
+        nameCode: document.getElementById('nameCode').value,
+        plotId: document.getElementById('plotId').value,
+        sampleLocation: document.getElementById('sampleLocation').value,
+        gpsDatum: document.getElementById('gpsDatum').value,
+        mapSeries: document.getElementById('mapSeries').value,
+        mapSheetNo: document.getElementById('mapSheetNo').value,
+        provinceCode: document.getElementById('provinceCode').value,
+        gpsCampSite: document.getElementById('gpsCampSite').value,
+        landUse: [],
+        weather: document.getElementById('weather').value,
+        campSite: document.getElementById('campSite').value,
+        gpsTrack: document.getElementById('gpsTrack').value,
+        accessNotes: document.getElementById('accessNotes').value,
+        comments: document.getElementById('comments').value,
+        Licahen : document.getElementById('Licahen').value,
+        Moss: document.getElementById('Moss').value,
+        Undergrowth : document.getElementById('Undergrowth').value
+    };
+
+    // เก็บข้อมูล Land Use
+    const landUseRows = document.querySelectorAll('#g3 tbody tr');
+    landUseRows.forEach(row => {
+        const code = row.children[0].children[0].value;
+        const description = row.children[1].children[0].value;
+        const cover = row.children[2].children[0].value;
+        if (code || description || cover) {
+            data.landUse.push({ code, description, cover });
+        }
+    });
+
+    // บันทึกข้อมูลลงใน Local Storage
+    localStorage.setItem('formData', JSON.stringify(data));
+
+    // บันทึกข้อมูลตาราง Tree
+    saveTableData('Tree', 'TreeTableData');
+
+    // บันทึกข้อมูลตาราง Seed
+    saveTableData('seed', 'seedTableData');
+
+    // บันทึกข้อมูลตาราง bamm
+    saveTableData('bamm', 'bammTableData');
+
+    alert('ข้อมูลทั้งหมดถูกบันทึกลงใน Local Storage!');
+}
+
+// ฟังก์ชันบันทึกข้อมูลของตาราง (ใช้ได้ทั้ง Tree และ Seed)
+function saveTableData(tableId, storageKey) {
+    const table = document.getElementById(tableId);
     const rows = table.rows;
-    let data = [];
+    let tableData = [];
 
     for (let i = 1; i < rows.length; i++) { // เริ่มที่ 1 เพื่อข้ามหัวตาราง
         let rowData = [];
         const cells = rows[i].cells;
-        for (let j = 0; j < cells.length - 1; j++) { // ข้ามคอลัมน์สุดท้ายที่เป็นปุ่มลบ
+        for (let j = 0; j < cells.length - 1; j++) { // -1 เพื่อไม่รวมเซลล์ปุ่มลบ
             rowData.push(cells[j].innerText);
         }
-        data.push(rowData);
+        tableData.push(rowData);
     }
 
-    localStorage.setItem('genTableData', JSON.stringify(data));
-    alert('ข้อมูลถูกบันทึกแล้ว');
-}
-
-// ฟังก์ชันโหลดข้อมูลจาก Local Storage
-function loadTable0() {
-    const data = JSON.parse(localStorage.getItem('genTableData'));
-    if (data) {
-        const table = document.getElementById('gen').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
-
-        data.forEach(function(rowData) {
-            const row = table.insertRow();
-            rowData.forEach(function(cellData) {
-                const cell = row.insertCell();
-                cell.contentEditable = "true";
-                cell.className = "gen";
-                cell.innerText = cellData;
-            });
-
-            // เพิ่มปุ่มลบ
-            const deleteCell = row.insertCell();
-            const deleteButton = document.createElement('button');
-            deleteButton.innerText = "ลบ";
-            deleteButton.onclick = function() {
-                deleteRow0(this);
-            };
-            deleteCell.appendChild(deleteButton);
-        });
-        alert('ข้อมูลถูกโหลดแล้ว');
-    } else {
-        alert('ไม่มีข้อมูลที่บันทึก');
-    }
+    localStorage.setItem(storageKey, JSON.stringify(tableData));
 }
 
 
 
 
 
-//1
-function saveTable() {
-    const table = document.getElementById('Tree');
-    const rows = table.rows;
-    let data = [];
+///////
 
-    for (let i = 1; i < rows.length; i++) { // เริ่มที่ 1 เพื่อข้ามหัวตาราง
-        let rowData = [];
-        const cells = rows[i].cells;
-        for (let j = 0; j < cells.length; j++) {
-            rowData.push(cells[j].innerText);
-        }
-        data.push(rowData);
-    }
 
-    localStorage.setItem('TreeTableData', JSON.stringify(data));
-    alert('ข้อมูลถูกบันทึกแล้ว');
-}
-
-function loadTable() {
-    const data = JSON.parse(localStorage.getItem('TreeTableData'));
-    if (data) {
-        const table = document.getElementById('Tree').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
-
-        data.forEach(function(rowData) {
-            const row = table.insertRow();
-            rowData.forEach(function(cellData) {
-                const cell = row.insertCell();
-                cell.contentEditable = "true";
-                cell.className = "editable";
-                cell.innerText = cellData;
-            });
-        });
-        alert('ข้อมูลถูกโหลดแล้ว');
-    } else {
-        alert('ไม่มีข้อมูลที่บันทึก');
-    }
-}
- // ฟังก์ชันเพิ่มแถวในตารางและบันทึกลง Local Storage ทันที
+// เพิ่มแถวในตาราง Tree
 function addRow() {
-    const table = document.getElementById('Tree').getElementsByTagName('tbody')[0];
+    addTableRow('Tree', 19);
+}
+
+// เพิ่มแถวในตาราง Seed
+function addRow1() {
+    addTableRow('seed', 8);
+}
+
+// เพิ่มแถวในตาราง Seed
+function addRow2() {
+    addTableRow('bamm', 16);
+}
+
+
+// ฟังก์ชันเพิ่มแถวสำหรับตารางใดๆ
+function addTableRow(tableId, colCount) {
+    const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
     const newRow = table.insertRow();
 
-    // สร้างเซลล์สำหรับแถวใหม่ (มีทั้งหมด 10 คอลัมน์ + 1 คอลัมน์สำหรับปุ่มลบ)
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < colCount; i++) {
         const newCell = newRow.insertCell();
         newCell.contentEditable = "true";
-        newCell.className = "Tree";
+        newCell.className = tableId;
         newCell.innerText = ""; // เซลล์ว่างเปล่า
     }
 
@@ -113,412 +112,197 @@ function addRow() {
     };
     deleteCell.appendChild(deleteButton);
 
-    // บันทึกข้อมูลทันทีเมื่อมีการเพิ่มแถว
-    saveTable();
-    alert('เพิ่มแถวใหม่แล้ว และข้อมูลถูกบันทึก');
+    saveData();
+    alert(`เพิ่มแถวใหม่ในตาราง ${tableId} แล้ว และข้อมูลถูกบันทึก`);
 }
 
-// ฟังก์ชันลบแถว
+
+////////
+
 function deleteRow(button) {
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row); // ลบแถวจากตาราง
+    const row = button.parentNode.parentNode; // หาค่าแถวที่มีปุ่มลบ
+    row.parentNode.removeChild(row); // ลบแถวออกจากตาราง
 
-    // บันทึกข้อมูลใหม่หลังจากลบแถว
-    saveTable();
-    alert('แถวถูกลบแล้ว');
-}
-
-// โหลดข้อมูลจาก Local Storage เมื่อโหลดหน้าเว็บ
-window.onload = function() {
-    loadTable();
+    // บันทึกข้อมูลใน Local Storage หลังจากลบแถว
+    saveData();
+    alert('แถวถูกลบแล้ว และข้อมูลถูกบันทึก');
 }
 
 
-//2
-function saveTable1() {
-    const table = document.getElementById('bamboo');
-    const rows = table.rows;
-    let data = [];
-
-    for (let i = 1; i < rows.length; i++) { // เริ่มที่ 1 เพื่อข้ามหัวตาราง
-        let rowData = [];
-        const cells = rows[i].cells;
-        for (let j = 0; j < cells.length; j++) {
-            rowData.push(cells[j].innerText);
-        }
-        data.push(rowData);
-    }
-
-    localStorage.setItem('bambooTableData', JSON.stringify(data));
-    alert('ข้อมูลถูกบันทึกแล้ว');
-}
+//////
 
 
-function loadTable1() {
-    const data = JSON.parse(localStorage.getItem('bambooTableData'));
-    if (data) {
-        const table = document.getElementById('bamboo').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
+// ฟังก์ชันสำหรับโหลดข้อมูลทั้งหมด
+function loadTable() {
+    // โหลดข้อมูลฟอร์มจาก Local Storage
+    const formData = JSON.parse(localStorage.getItem('formData'));
+    if (formData) {
+        document.getElementById('projectId').value = formData.projectId || '';
+        document.getElementById('plot').value = formData.plot || '';
+        document.getElementById('measurementDate').value = formData.measurementDate || '';
+        document.getElementById('gpsMap').value = formData.gpsMap || '';
+        document.getElementById('gpsSite').value = formData.gpsSite || '';
+        document.getElementById('nameCode').value = formData.nameCode || '';
+        document.getElementById('plotId').value = formData.plotId || '';
+        document.getElementById('sampleLocation').value = formData.sampleLocation || '';
+        document.getElementById('gpsDatum').value = formData.gpsDatum || '';
+        document.getElementById('mapSeries').value = formData.mapSeries || '';
+        document.getElementById('mapSheetNo').value = formData.mapSheetNo || '';
+        document.getElementById('provinceCode').value = formData.provinceCode || '';
+        document.getElementById('gpsCampSite').value = formData.gpsCampSite || '';
+        document.getElementById('weather').value = formData.weather || '';
+        document.getElementById('campSite').value = formData.campSite || '';
+        document.getElementById('gpsTrack').value = formData.gpsTrack || '';
+        document.getElementById('accessNotes').value = formData.accessNotes || '';
+        document.getElementById('comments').value = formData.comments || '';
+        document.getElementById('Licahen').value = formData.Licahen || '';
+        document.getElementById('Moss').value = formData.Moss || '';
+        document.getElementById('Undergrowth').value = formData.Undergrowth || '';
 
-        data.forEach(function(rowData) {
-            const row = table.insertRow();
-            rowData.forEach(function(cellData) {
-                const cell = row.insertCell();
-                cell.contentEditable = "true";
-                cell.className = "editable";
-                cell.innerText = cellData;
+        // โหลดข้อมูล Land Use ลงในตาราง #g3
+        if (formData.landUse && formData.landUse.length > 0) {
+            const landUseTable = document.getElementById('g3').getElementsByTagName('tbody')[0];
+            landUseTable.innerHTML = ''; // ล้างข้อมูลเก่าออกก่อน
+            formData.landUse.forEach(rowData => {
+                const row = landUseTable.insertRow();
+                const codeCell = row.insertCell();
+                const descriptionCell = row.insertCell();
+                const coverCell = row.insertCell();
+
+                codeCell.innerHTML = `<input type="text" value="${rowData.code}" />`;
+                descriptionCell.innerHTML = `<input type="text" value="${rowData.description}" />`;
+                coverCell.innerHTML = `<input type="text" value="${rowData.cover}" />`;
             });
-        });
-        alert('ข้อมูลถูกโหลดแล้ว');
-    } else {
-        alert('ไม่มีข้อมูลที่บันทึก');
-    }
-}
- // ฟังก์ชันเพิ่มแถวในตารางและบันทึกลง Local Storage ทันที
- function addRow1() {
-    const table = document.getElementById('bamboo').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-
-    // สร้างเซลล์สำหรับแถวใหม่ (มีทั้งหมด 10 คอลัมน์ + 1 คอลัมน์สำหรับปุ่มลบ)
-    for (let i = 0; i < 8; i++) {
-        const newCell = newRow.insertCell();
-        newCell.contentEditable = "true";
-        newCell.className = "bamboo";
-        newCell.innerText = ""; // เซลล์ว่างเปล่า
-    }
-
-    // เพิ่มปุ่มลบ
-    const deleteCell = newRow.insertCell();
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = "ลบ";
-    deleteButton.onclick = function() {
-        deleteRow1(this);
-    };
-    deleteCell.appendChild(deleteButton);
-
-    // บันทึกข้อมูลทันทีเมื่อมีการเพิ่มแถว
-    saveTable1();
-    alert('เพิ่มแถวใหม่แล้ว และข้อมูลถูกบันทึก');
-}
-
-// ฟังก์ชันลบแถว
-function deleteRow1(button) {
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row); // ลบแถวจากตาราง
-
-    // บันทึกข้อมูลใหม่หลังจากลบแถว
-    saveTable1();
-    alert('แถวถูกลบแล้ว');
-}
-
-// โหลดข้อมูลจาก Local Storage เมื่อโหลดหน้าเว็บ
-window.onload = function() {
-    loadTable1();
-}
-
-
-
-//3
-function saveTable2() {
-    const table = document.getElementById('waii');
-    const rows = table.rows;
-    let data = [];
-
-    for (let i = 1; i < rows.length; i++) { // เริ่มที่ 1 เพื่อข้ามหัวตาราง
-        let rowData = [];
-        const cells = rows[i].cells;
-        for (let j = 0; j < cells.length; j++) {
-            rowData.push(cells[j].innerText);
+        } else {
+            alert('ไม่มีข้อมูล Land Use ที่บันทึก');
         }
-        data.push(rowData);
-    }
-
-    localStorage.setItem('waiiTableData', JSON.stringify(data));
-    alert('ข้อมูลถูกบันทึกแล้ว');
-}
-
-
-function loadTable2() {
-    const data = JSON.parse(localStorage.getItem('waiiTableData'));
-    if (data) {
-        const table = document.getElementById('waii').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
-
-        data.forEach(function(rowData) {
-            const row = table.insertRow();
-            rowData.forEach(function(cellData) {
-                const cell = row.insertCell();
-                cell.contentEditable = "true";
-                cell.className = "editable";
-                cell.innerText = cellData;
-            });
-        });
-        alert('ข้อมูลถูกโหลดแล้ว');
     } else {
-        alert('ไม่มีข้อมูลที่บันทึก');
-    }
-}
-
- // ฟังก์ชันเพิ่มแถวในตารางและบันทึกลง Local Storage ทันที
- function addRow2() {
-    const table = document.getElementById('waii').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-
-    // สร้างเซลล์สำหรับแถวใหม่ (มีทั้งหมด 10 คอลัมน์ + 1 คอลัมน์สำหรับปุ่มลบ)
-    for (let i = 0; i < 5; i++) {
-        const newCell = newRow.insertCell();
-        newCell.contentEditable = "true";
-        newCell.className = "waii";
-        newCell.innerText = ""; // เซลล์ว่างเปล่า
+        alert('ไม่มีข้อมูลฟอร์มที่บันทึก');
     }
 
-    // เพิ่มปุ่มลบ
-    const deleteCell = newRow.insertCell();
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = "ลบ";
-    deleteButton.onclick = function() {
-        deleteRow2(this);
-    };
-    deleteCell.appendChild(deleteButton);
-
-    // บันทึกข้อมูลทันทีเมื่อมีการเพิ่มแถว
-    saveTable2();
-    alert('เพิ่มแถวใหม่แล้ว และข้อมูลถูกบันทึก');
-}
-
-// ฟังก์ชันลบแถว
-function deleteRow2(button) {
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row); // ลบแถวจากตาราง
-
-    // บันทึกข้อมูลใหม่หลังจากลบแถว
-    saveTable2();
-    alert('แถวถูกลบแล้ว');
-}
-
-// โหลดข้อมูลจาก Local Storage เมื่อโหลดหน้าเว็บ
-window.onload = function() {
-    loadTable2();
-}
-
-
-
-//4
-function saveTable3() {
-    const table = document.getElementById('sap');
-    const rows = table.rows;
-    let data = [];
-
-    for (let i = 1; i < rows.length; i++) { // เริ่มที่ 1 เพื่อข้ามหัวตาราง
-        let rowData = [];
-        const cells = rows[i].cells;
-        for (let j = 0; j < cells.length; j++) {
-            rowData.push(cells[j].innerText);
-        }
-        data.push(rowData);
-    }
-
-    localStorage.setItem('sapTableData', JSON.stringify(data));
-    alert('ข้อมูลถูกบันทึกแล้ว');
-}
-
-
-function loadTable3() {
-    const data = JSON.parse(localStorage.getItem('sapTableData'));
-    if (data) {
-        const table = document.getElementById('sap').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
-
-        data.forEach(function(rowData) {
-            const row = table.insertRow();
-            rowData.forEach(function(cellData) {
-                const cell = row.insertCell();
-                cell.contentEditable = "true";
-                cell.className = "editable";
-                cell.innerText = cellData;
-            });
-        });
-        alert('ข้อมูลถูกโหลดแล้ว');
+    // โหลดข้อมูลตาราง Tree
+    const treeData = JSON.parse(localStorage.getItem('TreeTableData'));
+    if (treeData) {
+        loadTableData('Tree', treeData);
     } else {
-        alert('ไม่มีข้อมูลที่บันทึก');
-    }
-}
-// ฟังก์ชันเพิ่มแถวในตารางและบันทึกลง Local Storage ทันที
-function addRow3() {
-    const table = document.getElementById('sap').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-
-    // สร้างเซลล์สำหรับแถวใหม่ (มีทั้งหมด 10 คอลัมน์ + 1 คอลัมน์สำหรับปุ่มลบ)
-    for (let i = 0; i < 8; i++) {
-        const newCell = newRow.insertCell();
-        newCell.contentEditable = "true";
-        newCell.className = "sap";
-        newCell.innerText = ""; // เซลล์ว่างเปล่า
+        alert('ไม่มีข้อมูล Tree ที่บันทึก');
     }
 
-    // เพิ่มปุ่มลบ
-    const deleteCell = newRow.insertCell();
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = "ลบ";
-    deleteButton.onclick = function() {
-        deleteRow3(this);
-    };
-    deleteCell.appendChild(deleteButton);
-
-    // บันทึกข้อมูลทันทีเมื่อมีการเพิ่มแถว
-    saveTable3();
-    alert('เพิ่มแถวใหม่แล้ว และข้อมูลถูกบันทึก');
-}
-
-// ฟังก์ชันลบแถว
-function deleteRow3(button) {
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row); // ลบแถวจากตาราง
-
-    // บันทึกข้อมูลใหม่หลังจากลบแถว
-    saveTable3();
-    alert('แถวถูกลบแล้ว');
-}
-
-// โหลดข้อมูลจาก Local Storage เมื่อโหลดหน้าเว็บ
-window.onload = function() {
-    loadTable3();
-}
-
-
-
-//5
-function saveTable4() {
-    const table = document.getElementById('seed');
-    const rows = table.rows;
-    let data = [];
-
-    for (let i = 1; i < rows.length; i++) { // เริ่มที่ 1 เพื่อข้ามหัวตาราง
-        let rowData = [];
-        const cells = rows[i].cells;
-        for (let j = 0; j < cells.length - 1; j++) { // ข้ามคอลัมน์สุดท้ายที่เป็นปุ่มลบ
-            rowData.push(cells[j].innerText);
-        }
-        data.push(rowData);
-    }
-
-    localStorage.setItem('seedTableData', JSON.stringify(data));
-    alert('ข้อมูลถูกบันทึกแล้ว');
-}
-
-function loadTable4() {
-    const data = JSON.parse(localStorage.getItem('seedTableData'));
-    if (data) {
-        const table = document.getElementById('seed').getElementsByTagName('tbody')[0];
-        table.innerHTML = '';
-
-        data.forEach(function(rowData) {
-            const row = table.insertRow();
-            rowData.forEach(function(cellData) {
-                const cell = row.insertCell();
-                cell.contentEditable = "true";
-                cell.className = "editable";
-                cell.innerText = cellData;
-            });
-
-            // เพิ่มปุ่มลบ
-            const deleteCell = row.insertCell();
-            const deleteButton = document.createElement('button');
-            deleteButton.innerText = "ลบ";
-            deleteButton.onclick = function() {
-                deleteRow4(this);
-            };
-            deleteCell.appendChild(deleteButton);
-        });
-        alert('ข้อมูลถูกโหลดแล้ว');
+    // โหลดข้อมูลตาราง Seed
+    const seedData = JSON.parse(localStorage.getItem('seedTableData'));
+    if (seedData) {
+        loadTableData('seed', seedData);
     } else {
-        alert('ไม่มีข้อมูลที่บันทึก');
-    }
-}
-
-function addRow4() {
-    const table = document.getElementById('seed').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-
-    // สร้างเซลล์สำหรับแถวใหม่ (มีทั้งหมด 6 คอลัมน์ + 1 คอลัมน์สำหรับปุ่มลบ)
-    for (let i = 0; i < 6; i++) {
-        const newCell = newRow.insertCell();
-        newCell.contentEditable = "true";
-        newCell.innerText = ""; // เซลล์ว่างเปล่า
+        alert('ไม่มีข้อมูล Seed ที่บันทึก');
     }
 
-    // เพิ่มปุ่มลบ
-    const deleteCell = newRow.insertCell();
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = "ลบ";
-    deleteButton.onclick = function() {
-        deleteRow4(this);
-    };
-    deleteCell.appendChild(deleteButton);
+    // โหลดข้อมูลตาราง bamm
+    const bammData = JSON.parse(localStorage.getItem('bammTableData'));
+    if (bammData) {
+        loadTableData('bamm', bammData);
+    } else {
+        alert('ไม่มีข้อมูล bamm ที่บันทึก');
+    }
 
-    saveTable4();
-    alert('เพิ่มแถวใหม่แล้ว และข้อมูลถูกบันทึก');
+    alert('ข้อมูลทั้งหมดถูกโหลดแล้ว!');
 }
 
-function deleteRow4(button) {
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row);
+// ฟังก์ชันโหลดข้อมูลของตาราง (ใช้ได้ทั้ง Tree และ Seed)
+function loadTableData(tableId, tableData) {
+    const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+    table.innerHTML = ''; // ล้างข้อมูลเก่าในตารางก่อน
 
-    saveTable4();
-    alert('แถวถูกลบแล้ว');
+    tableData.forEach(function(rowData) {
+        const row = table.insertRow();
+
+        // สร้างเซลล์ที่สามารถแก้ไขได้
+        rowData.forEach(function(cellData) {
+            const cell = row.insertCell();
+            cell.contentEditable = "true";
+            cell.className = "editable";
+            cell.innerText = cellData;
+        });
+
+        // สร้างเซลล์สำหรับปุ่มลบ
+        const deleteCell = row.insertCell();
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = "ลบ";
+        deleteButton.onclick = function() {
+            deleteRow(this);
+        };
+        deleteCell.appendChild(deleteButton);
+    });
 }
 
-window.onload = function() {
-    loadTable4();
-};
+function exportExcel() {
+    const data = JSON.parse(localStorage.getItem('formData'));
+    if (!data) {
+        alert('ไม่มีข้อมูลใน Local Storage!');
+        return;
+    }
 
-///ส่งออก
+    const workbook = XLSX.utils.book_new();
 
-
-function exportTableDataToPDF() {
-    // ดึงข้อมูลจาก Local Storage โดยแต่ละคีย์
-    const genData = JSON.parse(localStorage.getItem('genTableData')) || [];
-    const treeData = JSON.parse(localStorage.getItem('TreeTableData')) || [];
-    const waiiData = JSON.parse(localStorage.getItem('waiiTableData')) || [];
-    const sapData = JSON.parse(localStorage.getItem('sapTableData')) || [];
-    const seedData = JSON.parse(localStorage.getItem('seedTableData')) || [];
-
-    // รวมข้อมูลทั้งหมด
-    const allData = [
-        { title: "GENERAL DATA", data: genData },
-        { title: "TREE DATA", data: treeData },
-        { title: "WAI DATA", data: waiiData },
-        { title: "SAP DATA", data: sapData },
-        { title: "SEED DATA", data: seedData }
+    // สร้างชีตสำหรับข้อมูลทั่วไป
+    const generalInfo = [
+        ['Project ID', 'Plot', 'Measurement Date', 'GPS Plot Centre Map', 'GPS Plot Centre Site', 'Name (Code)', 'Plot ID'],
+        [data.projectId, data.plot, data.measurementDate, data.gpsMap, data.gpsSite, data.nameCode, data.plotId]
     ];
+    const generalInfoSheet = XLSX.utils.aoa_to_sheet(generalInfo);
+    XLSX.utils.book_append_sheet(workbook, generalInfoSheet, 'General Info');
 
-    if (allData.length > 0) {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        let y = 10; // เริ่มต้นตำแหน่ง Y สำหรับข้อความ
+    // สร้างชีตสำหรับข้อมูลตัวอย่าง
+    const sampleInfo = [
+        ['Sample Location & Data ID', 'GPS DATUM', 'Map Series', 'Map Sheet No.', 'Province Code', 'GPS Camp Site'],
+        [data.sampleLocation, data.gpsDatum, data.mapSeries, data.mapSheetNo, data.provinceCode, data.gpsCampSite]
+    ];
+    const sampleInfoSheet = XLSX.utils.aoa_to_sheet(sampleInfo);
+    XLSX.utils.book_append_sheet(workbook, sampleInfoSheet, 'Sample Info');
 
-        allData.forEach(section => {
-            const { title, data } = section;
-            if (data && data.length > 0) {
-                doc.text(title, 10, y); // ใส่ชื่อหัวข้อ
-                y += 10;
+    // สร้างชีตสำหรับข้อมูลการใช้ที่ดิน
+    const landUse = [['Land Use Code', 'Description', '% Cover']];
+    data.landUse.forEach(item => {
+        landUse.push([item.code, item.description, item.cover]);
+    });
+    const landUseSheet = XLSX.utils.aoa_to_sheet(landUse);
+    XLSX.utils.book_append_sheet(workbook, landUseSheet, 'Land Use');
 
-                // วนลูปข้อมูลและเพิ่มลงในไฟล์ PDF
-                data.forEach((row, index) => {
-                    doc.text(`Row ${index + 1}: ${row.join(', ')}`, 10, y);
-                    y += 10;
-                    if (y > 280) { // ถ้าเกินความสูงของหน้า ให้เพิ่มหน้าใหม่
-                        doc.addPage();
-                        y = 10;
-                    }
-                });
+    // สร้างชีตสำหรับข้อมูลเพิ่มเติม
+    const additionalInfo = [
+        ['Weather', 'Camp Site', 'GPS Track File Name', 'Access Notes', 'Comments'],
+        [data.weather, data.campSite, data.gpsTrack, data.accessNotes, data.comments]
+    ];
+    const additionalInfoSheet = XLSX.utils.aoa_to_sheet(additionalInfo);
+    XLSX.utils.book_append_sheet(workbook, additionalInfoSheet, 'Additional Info');
+    
+    console.log(localStorage.getItem('formData'));
+    console.log(localStorage.getItem('TreeTableData'));
+    console.log(localStorage.getItem('seedTableData'));
+    console.log(localStorage.getItem('bammTableData'));
+    
+    const treeData = JSON.parse(localStorage.getItem('TreeTableData')) || [];
+    const seedData = JSON.parse(localStorage.getItem('seedTableData')) || [];
+    const bammData = JSON.parse(localStorage.getItem('bammTableData')) || [];
+    
+    // สร้างชีตสำหรับข้อมูล Tree
+    const treeHeaders = ["Item No.", "Spicies Name", "Spicies Code", "Azimuth (°)", "Distance (m)", "Live / Dead", "Stand / Fall", "GBH (cm) (>= 15 )", "M / E", "ToTal Height (m)", "M / E", "Number of Logs", "Timber Quality (1*)", "Crown Class (2*)", "Crown Condition (3*)", "Crown Hight (m)", "Lichen Loading (%)", "Orchid (Y/N)", "Remark"]; // ใส่หัวตารางที่ถูกต้อง
+    const treeSheetData = [treeHeaders, ...treeData]; // รวมหัวตารางกับข้อมูล
+    const treeSheet = XLSX.utils.aoa_to_sheet(treeSheetData);
+    XLSX.utils.book_append_sheet(workbook, treeSheet, 'Tree Data');
 
-                y += 10; // เว้นบรรทัดหลังจากจบแต่ละเซ็ตข้อมูล
-            }
-        });
+    // สร้างชีตสำหรับข้อมูล Seed
+    const seedHeaders = ["% Cover Licahen", "% Cover Moss", "% Cover Undergrowth", "Item No.","Spicies Name","Spicies Code","Number of Seeding (Undergrowth > 1.3 Tall) N","Number of Seeding (Undergrowth > 1.3 Tall) ","Number of Seeding (Undergrowth > 1.3 Tall) S","Number of Seeding (Undergrowth > 1.3 Tall) W","Number of Saplings Undergrowth >= 1.3 m , GBH < 15 cm"]; // ใส่หัวตารางที่ถูกต้อง
+    const seedSheetData = [seedHeaders, ...seedData]; // รวมหัวตารางกับข้อมูล
+    const seedSheet = XLSX.utils.aoa_to_sheet(seedSheetData);
+    XLSX.utils.book_append_sheet(workbook, seedSheet, 'Seed Data');
 
-        doc.save('All_Data.pdf');
-    } else {
-        alert('ไม่มีข้อมูลใน Local Storage');
-    }
+    // สร้างชีตสำหรับข้อมูล Bamm
+    const bammHeaders = ["Item No.", "Spicies Nam", "Spicies Code", "B : Number of Culums ", "B : Ave. GBH (cm)", "B : Ave. Lenght (m)", "E : Number of Stems", "E : Min. GBH (cm)", "E : Max. GBH (cm)", "E : Ave. GBH (cm)", "E : Ave. Lenght (m)", "T : Girth (cm)", "T : Height (cm)", "Old / New", "Live / Dead", "Remark"]; // ใส่หัวตารางที่ถูกต้อง
+    const bammSheetData = [bammHeaders, ...bammData]; // รวมหัวตารางกับข้อมูล
+    const bammSheet = XLSX.utils.aoa_to_sheet(bammSheetData);
+    XLSX.utils.book_append_sheet(workbook, bammSheet, 'Bamm Data');
+
+    // บันทึกไฟล์ Excel
+    XLSX.writeFile(workbook, 'General Information.xlsx');
 }
+
