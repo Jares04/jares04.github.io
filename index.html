@@ -6,7 +6,23 @@
     <title> JAROSEWANDIN </title>
 
     <link rel="stylesheet" href="style.css">
+       /* สไตล์เพิ่มเติมสำหรับขนาดหน้าจอเล็ก */
+        @media (max-width: 768px) {
+            .table-container {
+                flex-direction: column;
+            }
+            table {
+                width: 100%;
+            }
+        }
 
+        /* ปรับสไตล์ปุ่มสำหรับอุปกรณ์พกพา */
+        @media (max-width: 480px) {
+            button {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
 </head>
 <body>
     
