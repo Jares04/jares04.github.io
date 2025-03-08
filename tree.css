@@ -21,7 +21,7 @@ header{
 }
 
 header nav a{
-    color: #082405;
+    color: #ffffff;
     margin-right: 5px;
     padding: 5px 10px;
     font-size: 16px;
@@ -134,7 +134,7 @@ a:hover{
     text-transform: uppercase;
     font-weight: bold;
     line-height: 1;
-    text-shadow: 3px 4px 4px rgba(58, 58, 58, 0.8);
+    text-shadow: 3px 4px 4px rgba(255, 255, 255, 0.8);
 
     opacity: 0;
     animation: animate 1s ease-in-out 0.6s 1 forwards;
@@ -221,8 +221,239 @@ th {
     background-color: #f9f9f9;
 }
 
+/* ปุ่ม */
+
+.button-add  {
+  background-color: #fff;
+  border: 0 solid #e2e8f0;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  color: #165e2c;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1rem 1.6rem;
+  text-align: center;
+  text-decoration: none #7dae84 solid;
+  text-decoration-thickness: auto;
+  transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-add:hover {
+  background-color: #7dae84;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .button-add {
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+  }
+}
+
+/* ปุ่ม save */
+
+.button-save  {
+    background-color: #fff;
+    border: 0 solid #e2e8f0;
+    border-radius: 1.5rem;
+    box-sizing: border-box;
+    color: #5a1871;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 1rem 1.6rem;
+    text-align: center;
+    text-decoration: none #0d172a solid;
+    text-decoration-thickness: auto;
+    transition: all .1s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-save:hover {
+    background-color: #9478a6;
+    color: #fff;
+  }
+  
+  @media (min-width: 768px) {
+    .button-save {
+      font-size: 1.125rem;
+      padding: 1rem 2rem;
+    }
+  }
+/* ปุ่ม lode */
+
+.button-lode  {
+    background-color: #fff;
+    border: 0 solid #e2e8f0;
+    border-radius: 1.5rem;
+    box-sizing: border-box;
+    color: #8b6f25;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 1rem 1.6rem;
+    text-align: center;
+    text-decoration: none #ffffff solid;
+    text-decoration-thickness: auto;
+    transition: all .1s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-lode:hover {
+    background-color: #ccb893;
+    color: #fff;
+  }
+  
+  @media (min-width: 768px) {
+    .button-lode {
+      font-size: 1.125rem;
+      padding: 1rem 2rem;
+    }
+  }
+
+/* ปุ่ม pdf */
+
+/* CSS */
+
+    .button-pdf {
+      background-color: #a11e50;
+      border-radius: 100px;
+      box-shadow: rgba(137, 89, 105, 0.958) 0 -25px 18px -14px inset,rgba(137, 89, 105, 0.958) 0 1px 2px,rgba(137, 89, 105, 0.958) 0 2px 4px,rgba(137, 89, 105, 0.958) 0 4px 8px,rgba(137, 89, 105, 0.958) 0 8px 16px,rgba(137, 89, 105, 0.958) 0 16px 32px;
+      color: rgb(188, 163, 177);
+      cursor: pointer;
+      display: inline-block;
+      font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+      padding: 7px 20px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 250ms;
+      border: 0;
+      font-size: 16px;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    .button-pdf:hover {
+      box-shadow: rgba(255, 170, 196, 0.668) 0 -25px 18px -14px inset,rgba(255, 170, 196, 0.668) 0 1px 2px,rgba(255, 170, 196, 0.668) 0 2px 4px,rgba(255, 170, 196, 0.668) 0 4px 8px,rgba(255, 170, 196, 0.668) 0 8px 16px,rgba(255, 170, 196, 0.668) 0 16px 32px;
+      transform: scale(1.05) rotate(-1deg);
+    }
+
+    /* ปุ่ม ลบ*/
+   
+/* CSS */
+.button-del {
+  align-items: center;
+  background-color: #688db2;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.button-del:hover,
+.button-del:focus { 
+  background-color: #4a5666;
+  color: #ffffff;
+}
+
+.button-del:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-del:disabled { 
+  cursor: not-allowed;
+  background: #ffffff;
+  color: rgb(255, 255, 255);
+}
+
+
+/* เปลี่ยนสีข้อความทั้งหมดเป็นสีขาว */
+body {
+  color: white;
+}
 
 
 
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white; /* ตั้งค่าพื้นหลังของตารางเป็นสีขาว */
+  border-radius: 10px; /* ทำให้ขอบมน */
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาให้ตาราง */
+}
 
+.table-container th, 
+.table-container td {
+  border: 1px solid #ddd; /* ใส่เส้นขอบสีเทาอ่อน */
+  padding: 10px;
+  text-align: center;
+}
 
+.table-container th {
+  background-color: #f4f4f4; /* พื้นหลังของหัวตาราง */
+  font-weight: bold;
+}
+
+#Tree {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#Tree th, 
+#Tree td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+#Tree th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
