@@ -9,148 +9,66 @@
     
 
 <style>
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('01.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh; /* ทำให้พื้นหลังเต็มหน้าจอ */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .container {
+        max-width: 400px;
+        margin: 20px;
+    }
+    
+    h2 {
+        margin-bottom: 20px;
+    }
+    
+    button {
+        padding: 10px;
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    #calculator {
+        display: inline-block;
+        padding: 20px;
+        border: 2px solid #ffffff;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+    
+    input[type="button"], input[type="text"] {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin: 5px;
+        text-align: center;
+    }
+    
+    input[type="text"] {
+        width: 240px;
+    }
+</style>        
 
-        /* ใช้ Poppins font */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
 
-        /* ให้ตัวอักษรและพื้นหลังเป็นสีขาว */
-        body {
-            color: white;
-            font-size: 16px;
-            background-image: url('01.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            text-align: center;
-        }
-
-        /* สำหรับ header */
-        header {
-            width: 100%;
-            padding: 10px 20px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-
-        header nav a {
-            color: #ffffff;
-            margin-right: 15px;
-            padding: 5px 10px;
-            font-size: 16px;
-            text-decoration: none;
-        }
-
-        header nav a.active {
-            background-color: #58a915cb;
-            border-radius: 2px;
-        }
-
-        header nav a:hover {
-            background-color: #efd637cb;
-        }
-
-        /* สำหรับเนื้อหาหลัก */
-        .container {
-            max-width: 90%;
-            margin: auto;
-            padding: 20px;
-        }
-
-        /* ปรับขนาด input และ button ให้เหมาะสม */
-        input[type="number"], button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        /* ปรับขนาดข้อความให้พอดีในมือถือ */
-        h2 {
-            font-size: 24px;
-        }
-
-        /* ปรับตาราง */
-        table {
-            width: 100%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        /* ปุ่ม */
-        .button-add, .button-save, .button-lode, .button-pdf, .button-del {
-            background-color: #fff;
-            color: #5a1871;
-            border: 0;
-            padding: 1rem 1.6rem;
-            border-radius: 1.5rem;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all .1s cubic-bezier(.4, 0, .2, 1);
-            box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
-        }
-
-        .button-add:hover, .button-save:hover, .button-lode:hover {
-            background-color: #7dae84;
-            color: #fff;
-        }
-
-        /* ปรับให้เหมาะสมบนมือถือ */
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 20px;
-            }
-
-            table {
-                font-size: 14px;
-            }
-
-            input[type="number"], button {
-                width: 100%;
-                font-size: 16px;
-            }
-
-            .button-add, .button-save, .button-lode {
-                font-size: 1rem;
-                padding: 1rem;
-            }
-
-            /* ปรับ header ให้อยู่ตรงกลาง */
-            header {
-                padding: 10px;
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
     
 </head>
 <body>
