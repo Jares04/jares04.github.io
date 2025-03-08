@@ -4,10 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>General Information</title>
-     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+
     
+    <header>
+
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="tree.html"> Inventory </a>
+            <a href="cal.html"> Calculation </a>
+           
+            
+        </nav>
+
+    </header>
+   
     <style>
-        /* Header section */
+        body {
+         background-image: url('image/01.jpg');
+        background-size: cover; /* ปรับขนาดรูปให้เต็มจอ */
+        background-position: center; /* จัดตำแหน่งตรงกลาง */
+        background-repeat: no-repeat; /* ไม่ให้รูปซ้ำ */
+        }
 
         body {
             font-family: Arial, sans-serif;
@@ -66,21 +85,20 @@
             display: flex;
             justify-content: space-between;
         }
-    </style>
 
+    /* กำหนดสไตล์ของแต่ละกลุ่ม */
+    .table-group {
+        margin-top: 20px; /* ระยะห่างระหว่างกลุ่ม */
+        border: 2px solid #666; /* เส้นกรอบรอบกลุ่ม */
+        border-radius: 8px;
+        padding: 10px; /* ระยะห่างภายในกลุ่ม */
+    }
+   
+    </style>
 
 </head>
 <body>
-    
-    <br>
-     <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="tree.html"> Inventory </a>
-        <a href="cal.html"> Calculation </a>
-    </nav>
 
-
-    <br>
     <div class="container">
         <br>
         <center><h2>GENERAL INFORMATION</h2></center>
@@ -104,8 +122,17 @@
                     <td><input type="text" id="projectId" placeholder="Enter Project ID"></td>
                     <td><input type="text" id="plot" placeholder="Enter Plot"></td>
                     <td><input type="date" id="measurementDate"></td>
-                    <td><input type="text" id="gpsMap" placeholder="Enter GPS Plot Centre Map"></td>
-                    <td><input type="text" id="gpsSite" placeholder="Enter GPS Plot Centre Site"></td>
+                    
+                    <td>
+                        <input type="text" id="gpsMap" placeholder="Enter GPS Plot Centre Map">
+                        <button type="button" onclick="getLocation(this)">Get GPS</button>
+                    </td>
+                    <td>
+                        <input type="text" id="gpsSite" placeholder="Enter GPS Plot Centre Site">
+                        <button type="button" onclick="getLocation(this)">Get GPS</button>
+                    </td>
+
+                    
                     <td><input type="text" id="nameCode" placeholder="Enter Name (Code)"></td>
                     <td><input type="text" id="plotId" placeholder="Enter Plot ID"></td>
                 </tr>
@@ -127,11 +154,17 @@
             <tbody>
                 <tr>
                     <td><input type="text" id="sampleLocation" placeholder="Sample Location & Data ID"></td>
-                    <td><input type="text" id="gpsDatum" placeholder="Enter GPS DATUM"></td>
+                    <td>
+                        <input type="text" id="gpsDatum" placeholder="Enter GPS DATUM">
+                        <button type="button" onclick="getLocation(this)"> Get GPS </button>
+                    </td>
                     <td><input type="text" id="mapSeries" placeholder="Enter Map Series"></td>
                     <td><input type="text" id="mapSheetNo" placeholder="Enter Map Sheet No."></td>
                     <td><input type="text" id="provinceCode" placeholder="Enter Province Code"></td>
-                    <td><input type="text" id="gpsCampSite" placeholder="Enter GPS Camp Site"></td>
+                    <td>
+                        <input type="text" id="gpsCampSite" placeholder="Enter GPS Camp Site">
+                        <button type="button" onclick="getLocation(this)"> Get GPS </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -175,259 +208,277 @@
 
     </div>
 
-    <br>
-    <center><h1> TREES </h1></center>
-    <br>
-    <div class="table-container">
-        <!-- Timber Quality Table -->
-        <table id="1">
-            <tr>
-                <th colspan="3">Timber Quality (1*)</th>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <th>GBH (cm)</th>
-                <th>Remark</th>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>15 - 45</td>
-                <td>11 = Sound</td>
-            </tr>
-            <tr>
-                <td>20</td>
-                <td>45 - 100</td>
-                <td>12 = Cull</td>
-            </tr>
-            <tr>
-                <td>11,12,13</td>
-                <td>&gt; 100</td>
-                <td>13 = Firewood</td>
-            </tr>
-        </table>
+    <br> 
+
+    <div class="container">
+        <br>
+        <center><h1> TREES </h1></center>
+        <br>
+        <div class="table-container">
+                <!-- Timber Quality Table -->
+                <table id="1">
+                    <tr>
+                        <th colspan="3">Timber Quality (1*)</th>
+                    </tr>
+                    <tr>
+                        <th>Code</th>
+                        <th>GBH (cm)</th>
+                        <th>Remark</th>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>15 - 45</td>
+                        <td>11 = Sound</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>45 - 100</td>
+                        <td>12 = Cull</td>
+                    </tr>
+                    <tr>
+                        <td>11,12,13</td>
+                        <td>&gt; 100</td>
+                        <td>13 = Firewood</td>
+                    </tr>
+                </table>
+            
+                <!-- Crown Class Table -->
+                <table id="2">
+                    <tr>
+                        <th colspan="2">Crown Class (2*)</th>
+                    </tr>
+                    <tr>
+                        <th>Code</th>
+                        <th>Definition</th>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>Dominant</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>Co-dominant</td>
+                    </tr>
+                    <tr>
+                        <td>I</td>
+                        <td>Intermediate</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>Suppressed</td>
+                    </tr>
+                </table>
+            
+                <!-- Crown Condition Table -->
+                <table id="3">
+                    <tr>
+                        <th colspan="2">Crown Condition (3*)</th>
+                    </tr>
+                    <tr>
+                        <th>Code</th>
+                        <th>Definition</th>
+                    </tr>
+                    <tr>
+                        <td>G</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td>P</td>
+                        <td>Poor</td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+
     
-        <!-- Crown Class Table -->
-        <table id="2">
-            <tr>
-                <th colspan="2">Crown Class (2*)</th>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <th>Definition</th>
-            </tr>
-            <tr>
-                <td>D</td>
-                <td>Dominant</td>
-            </tr>
-            <tr>
-                <td>C</td>
-                <td>Co-dominant</td>
-            </tr>
-            <tr>
-                <td>I</td>
-                <td>Intermediate</td>
-            </tr>
-            <tr>
-                <td>S</td>
-                <td>Suppressed</td>
-            </tr>
+
+            <center><table id="Tree"></center>
+            <thead>
+                <tr>
+                    <th>Item No.</th>
+                    <th>Spicies Name</th>
+                    <th>Spicies Code</th>
+                    <th>Azimuth (°) </th>
+                    <th>Distance (m)</th>
+                    <th>Live / Dead</th>
+                    <th>Stand / Fall</th>
+                    <th>GBH (cm) (>= 15 )</th>
+                    <th>M / E</th>
+                    <th> ToTal Height (m) </th>
+                    <th>M / E</th>
+                    <th> Number of Logs</th>
+                    <th> Timber Quality (1*)</th>
+                    <th>Crown Class (2*)</th>
+                    <th>Crown Condition (3*)</th>
+                    <th>Crown Hight (m)</th>
+                    <th>Lichen Loading (%)</th>
+                    <th>Orchid (Y/N)</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    
+                    <td><button class="button-del"onclick="deleteRow(this)">ลบ</button></td>
+                </tr>
+            </tbody>
         </table>
-    
-        <!-- Crown Condition Table -->
-        <table id="3">
-            <tr>
-                <th colspan="2">Crown Condition (3*)</th>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <th>Definition</th>
-            </tr>
-            <tr>
-                <td>G</td>
-                <td>Good</td>
-            </tr>
-            <tr>
-                <td>M</td>
-                <td>Medium</td>
-            </tr>
-            <tr>
-                <td>P</td>
-                <td>Poor</td>
-            </tr>
-        </table>
+        <br>
+        <center><button class="button-add"onclick="addRow('Tree')">เพิ่มแถว</button>
     </div>
     <br>
 
-    <center><table id="Tree"></center>
-    <thead>
-        <tr>
-            <th>Item No.</th>
-            <th>Spicies Name</th>
-            <th>Spicies Code</th>
-            <th>Azimuth (°) </th>
-            <th>Distance (m)</th>
-            <th>Live / Dead</th>
-            <th>Stand / Fall</th>
-            <th>GBH (cm) (>= 15 )</th>
-            <th>M / E</th>
-            <th> ToTal Height (m) </th>
-            <th>M / E</th>
-            <th> Number of Logs</th>
-            <th> Timber Quality (1*)</th>
-            <th>Crown Class (2*)</th>
-            <th>Crown Condition (3*)</th>
-            <th>Crown Hight (m)</th>
-            <th>Lichen Loading (%)</th>
-            <th>Orchid (Y/N)</th>
-            <th>Remark</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            
-            <td><button class="button-del"onclick="deleteRow(this)">ลบ</button></td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<center><button class="button-add"onclick="addRow('Tree')">เพิ่มแถว</button>
 
+    <div class="container">
 
+        <br>
+        <center><h1> LICHEN,MOSS,SEEDING&SAPLING </h1>
+        <h4> Plot Radius 3.99 m</h4>
+        </center>
+        <br>
 
+        <table id="g4">
+            <thead>
+                <tr>
+                    <th>% Cover Licahen</th>
+                    <th>% Cover Moss</th>
+                    <th>% Cover Undergrowth</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="Licahen" placeholder="Enter % Licahen"></td>
+                    <td><input type="text" id="Moss" placeholder="Enter % Moss"></td>
+                    <td><input type="text" id="Undergrowth" placeholder="Enter % Undergrowth"></td>
+                </tr>
+            </tbody>
+        </table>
 
-<br>
-<center><h1> LICHEN,MOSS,SEEDING&SAPLING </h1>
-<h4> Plot Radius 3.99 m</h4>
-</center>
-<br>
-<table id="g4">
-    <thead>
-        <tr>
-            <th>% Cover Licahen</th>
-            <th>% Cover Moss</th>
-            <th>% Cover Undergrowth</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" id="Licahen" placeholder="Enter % Licahen"></td>
-            <td><input type="text" id="Moss" placeholder="Enter % Moss"></td>
-            <td><input type="text" id="Undergrowth" placeholder="Enter % Undergrowth"></td>
-        </tr>
-    </tbody>
-</table>
-
-    <center><table id="seed"></center>
-    <thead>
-        <tr>
-            <th>Item No.</th>
-            <th>Spicies Name</th>
-            <th>Spicies Code</th>
-            <th>Number of Seeding (Undergrowth > 1.3 Tall) N </th>
-            <th>Number of Seeding (Undergrowth > 1.3 Tall) E</th>
-            <th>Number of Seeding (Undergrowth > 1.3 Tall) S</th>
-            <th>Number of Seeding (Undergrowth > 1.3 Tall) W</th>
-            <th>Number of Saplings Undergrowth >= 1.3 m , GBH < 15 cm</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td><button class="button-del"onclick="deleteRow1(this)">ลบ</button></td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<center><button class="button-add"onclick="addRow1('seed')">เพิ่มแถว</button>
-<br>
-
-
-    <center><h1> BAMBOO , ERECTRATTAN & TREE STUMP </h1>
-        <h4> B = BAMBOO, E = ERECTRATTAN , T = TREE STUMP </h4></center>
-
+            <center><table id="seed"></center>
+            <thead>
+                <tr>
+                    <th>Item No.</th>
+                    <th>Spicies Name</th>
+                    <th>Spicies Code</th>
+                    <th>Number of Seeding (Undergrowth > 1.3 Tall) N </th>
+                    <th>Number of Seeding (Undergrowth > 1.3 Tall) E</th>
+                    <th>Number of Seeding (Undergrowth > 1.3 Tall) S</th>
+                    <th>Number of Seeding (Undergrowth > 1.3 Tall) W</th>
+                    <th>Number of Saplings Undergrowth >= 1.3 m , GBH < 15 cm</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td><button class="button-del"onclick="deleteRow1(this)">ลบ</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <center><button class="button-add"onclick="addRow1('seed')">เพิ่มแถว</button>
+        <br>
+    </div>
     <br>
-    
-        <center><table id="bamm"></center>
-        <thead>
-            <tr>
-                <th>Item No.</th>
-                <th>Spicies Name</th>
-                <th>Spicies Code</th>
-                <th> B : Number of Culums </th>
-                <th>B : Ave. GBH (cm)</th>
-                <th>B : Ave. Lenght (m)</th>
-                <th> E : Number of Stems </th>
-                <th>E : Min. GBH (cm)</th>
-                <th>E : Max. GBH (cm)</th>
-                <th> E : Ave. GBH (cm) </th>
-                <th>E : Ave. Lenght (m)</th>
-                <th>T : Girth (cm)</th>
-                <th>T : Height (cm)</th>
-                <th>Old / New</th>
-                <th>Live / Dead</th>
-                <th>Remark</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td><button class="button-del"onclick="deleteRow2(this)">ลบ</button></td>
-            </tr>
-        </tbody>
-    </table>
 
+
+    <div class="container">
+        <center><h1> BAMBOO , ERECTRATTAN & TREE STUMP </h1>
+            <h4> B = BAMBOO, E = ERECTRATTAN , T = TREE STUMP </h4></center>
+
+        <br>
+        
+            <center><table id="bamm"></center>
+            <thead>
+                <tr>
+                    <th>Item No.</th>
+                    <th>Spicies Name</th>
+                    <th>Spicies Code</th>
+                    <th> B : Number of Culums </th>
+                    <th>B : Ave. GBH (cm)</th>
+                    <th>B : Ave. Lenght (m)</th>
+                    <th> E : Number of Stems </th>
+                    <th>E : Min. GBH (cm)</th>
+                    <th>E : Max. GBH (cm)</th>
+                    <th> E : Ave. GBH (cm) </th>
+                    <th>E : Ave. Lenght (m)</th>
+                    <th>T : Girth (cm)</th>
+                    <th>T : Height (cm)</th>
+                    <th>Old / New</th>
+                    <th>Live / Dead</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td><button class="button-del"onclick="deleteRow2(this)">ลบ</button></td>
+                </tr>
+            </tbody>
+        </table>
+   
+        <br>
+        <center><button class="button-add"onclick="addRow2('bamm')">เพิ่มแถว</button>
+        <br>   
+    </div>
     <br>
-    <center><button class="button-add"onclick="addRow2('bamm')">เพิ่มแถว</button>
-    <br>   
-    
+
+
+ 
+<div class="container">   
+    <center><button class="button-lode" onclick="loadTable('tree','seed','bamm')">โหลดข้อมูล</button>
+    <button onclick="saveData()">บันทึกข้อมูล</button>
+    <button onclick="exportExcel()">ส่งออกข้อมูล</button></center>
+</div>
 <br>
-<button class="button-lode" onclick="loadTable('tree','seed','bamm')">โหลดข้อมูล</button>
-<button onclick="saveData()">บันทึกข้อมูล</button>
-<button onclick="exportExcel()">ส่งออกข้อมูล</button>
 
 
 <script src="tree.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
 </body>
