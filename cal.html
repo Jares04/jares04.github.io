@@ -6,7 +6,9 @@
     <title>แปลง GBH เป็น DBH</title>
     <link rel="stylesheet" href="tree.css">
 
-      <style>
+    
+
+    <style>
                 body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -37,7 +39,11 @@
             background-color: #45a049;
         }
 
-    
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
 
         #calculator {
             display: inline-block;
@@ -59,7 +65,6 @@
         }
 
     </style>
-    
 </head>
 <body>
     <header>
@@ -144,7 +149,7 @@
 
             document.getElementById('calcResult').innerText = `ผลลัพธ์: ${result}`;
         }
-
+<center>
 // ฟังก์ชันเพิ่มตัวเลขหรือเครื่องหมายลงในจอแสดงผล
 function addToDisplay(value) {
             document.getElementById("result").value += value;
@@ -164,7 +169,7 @@ function addToDisplay(value) {
         function clearDisplay() {
             document.getElementById("result").value = "";
         }
-
+</center>
 
     </script>
 </body>
