@@ -306,3 +306,60 @@ function exportExcel() {
     XLSX.writeFile(workbook, 'General Information.xlsx');
 }
 
+
+
+
+// ฟังก์ชันดึงพิกัด GPS และแสดงผลในช่องอินพุต
+function getLocation(button) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => showPosition(position, button),
+            showError,
+            { enableHighAccuracy: true } // เพิ่มความแม่นยำ
+        );
+    } else {
+        alert("เบราว์เซอร์ของคุณไม่รองรับ Geolocation");
+    }
+}
+
+// ฟังก์ชันแปลงมุมองศาเป็นทิศทาง
+function getDirection(heading) {
+    if (heading === null || isNaN(heading)) return "N/A"; // กรณีไม่มีค่าทิศ
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
+    const index = Math.round(heading / 45);
+    return directions[index];
+}
+
+// ฟังก์ชันใส่ค่าพิกัดลงในช่องที่กดปุ่ม
+function showPosition(position, button) {
+    const latitude = position.coords.latitude.toFixed(6);
+    const longitude = position.coords.longitude.toFixed(6);
+    const heading = position.coords.heading; // มุมองศา
+    const direction = getDirection(heading); // แปลงมุมเป็นทิศ
+
+    const gpsText = `${latitude}, ${longitude} (${direction})`; // แสดงพิกัดพร้อมทิศ
+
+    // หาช่องอินพุตที่อยู่ก่อนหน้าปุ่ม
+    const inputField = button.previousElementSibling;
+    if (inputField && inputField.tagName === "INPUT") {
+        inputField.value = gpsText;
+    }
+}
+
+// ฟังก์ชันแสดงข้อผิดพลาด
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            alert("ผู้ใช้ปฏิเสธการเข้าถึงตำแหน่งที่ตั้ง");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("ไม่สามารถดึงข้อมูลตำแหน่งที่ตั้งได้");
+            break;
+        case error.TIMEOUT:
+            alert("หมดเวลาการร้องขอพิกัด");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ");
+            break;
+    }
+}
